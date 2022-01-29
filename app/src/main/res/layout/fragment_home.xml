@@ -7,13 +7,14 @@
     tools:context=".HomeFragment">
 
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/btn_navigate_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home Screen"
+        android:text="Naigate to Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
