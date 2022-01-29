@@ -1,2 +1,54 @@
 https://proandroiddev.com/android-navigation-component-fc783c03bb8d
 https://medium.com/swlh/android-navigation-component-part-1-6191323eaf39
+
+------- enterAnim, exitAnim, popEnterAnim, popExitAnim -------
+"Entering" refers to the destination that is coming onto the screen, while "exiting" refers to the destination leaving the screen.
+Therefore when you navigate from destination A to destination B,
+the entering destination B will have the enterAnim applied to it and the exiting destination A will have the exitAnim applied to it.
+When the user hits the system Back button, going from B back to A,
+the reverse happens: the entering destination A will have the popEnterAnim applied to it and the exiting destination B will have the popExitAnim applied to it.
+-------------------------------------------------------------------------------------------
+
+
+
+
+------- popUpTo, popUpToInclusive --------
+In any <action> if we write a value for app:popUpTo,
+it means we want to delete some of the fragments from the back stack just after completing the action,
+but which fragments are going to be removed from the back stack when action is completed?
+
+Its order is Last In First Out so:
+All fragments between the last fragment and the fragment defined in popUpTo will be removed.
+And if we add app:popUpToInclusive="true", then the fragment defined in popUpTo will also be removed.
+Example: Consider fragments from A to G in a navigation graph like this:
+
+A->B->C->D->E->F->G
+
+We can go from A to B and then from B to C and so on. Consider the following two actions:
+
+An action E->F we write:
+<action
+    ...
+    app:destination="@+id/F"
+    app:popUpTo="@+id/C"
+    app:popUpToInclusive="false"/>
+And for F->G we write:
+<action
+    ...
+    app:destination="@+id/G"
+    app:popUpTo="@+id/B"
+    app:popUpToInclusive="true"/>
+Then after going from E to F using the action E->F, the fragments between the last fragment (F) and C
+(which is defined in popUpTo of E->F) will be removed. The fragment C will not be removed this time
+because of app:popUpToInclusive="false" so our back stack becomes:
+
+A->B->C->F (F is currently on Top)
+
+Now if we go to fragment G using action F->G : all fragments between the last fragment(G)
+and B (which is defined in popUpTo of F->G ) will be removed but this time the fragment B will also be
+removed because in F->G action we wrote app:popUpToInclusive="true" . so back stack becomes:
+
+A->G (G is on top now)
+
+
+-------------------------------------------------------------------------------------------
