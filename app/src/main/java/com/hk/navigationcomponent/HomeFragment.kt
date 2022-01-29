@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,8 +30,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         .build()
 
                     findNavController().navigate(
-                        action,
-                        navOptions
+                        action
                     )
                 }
                 false -> {
@@ -38,12 +39,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         .build()
 
                     findNavController().navigate(
-                        action,
-                        navOptions
+                        action
                     )
                 }
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("LOGIN_TRIED")
+            ?.observe(viewLifecycleOwner) {
+                if(it) {
+                    Toast.makeText(requireContext(), "Sorry not able to login", Toast.LENGTH_SHORT).show()
+                }
+            }
+
     }
 
     private fun checkUserIsLogedIn(): Boolean {
