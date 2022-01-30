@@ -24,7 +24,7 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
             isLoginSuccessful().let {
                 when(it) {
                     true -> {
-                        val action = LoginFragmentDirections.actionLoginFragmentToProfileFragment()
+                        val action = LoginFragmentDirections.actionLoginFragmentToProfileFragment(et_name.text.toString())
                         val navOptions: NavOptions = NavOptions.Builder()
                             .setPopUpTo(R.id.loginFragment, true)
                             .build()

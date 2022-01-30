@@ -40,7 +40,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     checkUserIsLogedIn().let {
                         when(it) {
                             true -> {
-                                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+                                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment("monika")
                                 val navOptions: NavOptions = NavOptions.Builder()
                                     .build()
 

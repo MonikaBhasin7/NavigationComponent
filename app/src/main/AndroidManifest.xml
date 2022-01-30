@@ -15,6 +15,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <nav-graph android:value="@navigation/login_nav_graph" />
+
         </activity>
     </application>
 
