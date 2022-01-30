@@ -3,6 +3,7 @@ package com.hk.navigationcomponent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
@@ -11,12 +12,13 @@ import kotlinx.android.synthetic.main.fragment_login.*
 class LoginFragment: Fragment(R.layout.fragment_login) {
 
     val TAG = "LoginFragment"
+    private var savedStateHandle: SavedStateHandle? = null
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findNavController().previousBackStackEntry?.savedStateHandle?.let {
-            it.set("LOGIN_TRIED", false)
-        }
+        savedStateHandle = findNavController().previousBackStackEntry?.savedStateHandle
 
         btn_submit.setOnClickListener {
             isLoginSuccessful().let {
@@ -29,9 +31,7 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
                         findNavController().navigate(action, navOptions)
                     }
                     false -> {
-                        findNavController().previousBackStackEntry?.savedStateHandle?.let { savedStateHandle ->
-                            savedStateHandle.set("LOGIN_TRIED", true)
-                        }
+                        savedStateHandle?.set("LOGIN_TRIED", true)
                         findNavController().popBackStack()
                     }
                 }
